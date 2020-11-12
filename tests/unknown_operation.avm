@@ -1,0 +1,7 @@
+push int8(9)
+
+compute
+
+dump
+
+exit
