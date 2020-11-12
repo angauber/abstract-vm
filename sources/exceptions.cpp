@@ -1,7 +1,5 @@
 #include "exceptions.hpp"
 
-#include <iostream>
-
 Exception::Exception(std::string const &msg) {
 	this->msg = msg;
 	this->format();

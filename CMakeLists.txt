@@ -1,13 +1,18 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(AbstractVM VERSION 0.1)
+project(AbstractVM
+	VERSION 0.1
+	DESCRIPTION "RPN calculator virtual machine with assembly like syntax"
+	LANGUAGES CXX)
 
-set(EXEC avm)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror")
 
-set (CMAKE_CXX_STANDARD 17)
+add_executable(avm	sources/main.cpp
+					sources/lexer.cpp
+					sources/parser.cpp
+					sources/operandFactory.cpp
+					sources/vm.cpp
+					sources/exceptions.cpp)
 
-include_directories(includes)
-
-file(GLOB SOURCES sources/*.cpp)
-
-add_executable(${EXEC} ${SOURCES})
+target_include_directories(avm PRIVATE includes)

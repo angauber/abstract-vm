@@ -16,24 +16,16 @@ void	Parser::parseTokens() {
 	std::string operation;
 	std::string type;
 
-	for (int i = 0; i < this->line.tokens.size(); i++) {
-		switch(i) {
-			case 0:
-				operation = this->line.tokens[i];
-				break;
-			case 1:
-				type = this->line.tokens[i];
-				break;	
-		}
-	}
+	operation = this->line.tokens.front();
 
+	if (this->line.tokens.size() == 2)
+		type = this->line.tokens.back();
 	
 	this->handleInstruction(operation, type);
 }
 
 IOperand const	*Parser::getOperand(std::string operand) {
 	OperandFactory factory;
-	eOperandType operandType;
 
 	std::string type;
 	std::string value;

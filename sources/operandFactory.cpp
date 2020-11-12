@@ -31,8 +31,8 @@ IOperand const		*OperandFactory::createOperand(eOperandType type, std::string co
 
 	try {
 		return (this->*function[type])(value);
-	} catch (std::out_of_range) {
-		if (value[0] == '-') {
+	} catch (const std::out_of_range &) {
+		if (!value.empty() && value[0] == '-') {
 			throw UnderflowException();
 		} else {
 			throw OverflowException();
