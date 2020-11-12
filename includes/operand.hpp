@@ -31,7 +31,7 @@ class Operand : public IOperand {
 		}
 
 		int	getPrecision() const {
-			return sizeof(T);
+			return (int) sizeof(T);
 		}
 
 		eOperandType	getType() const {
@@ -121,8 +121,7 @@ class Operand : public IOperand {
 			T v2 = (T) rhs.getDoubleValue();
 
 			if (v2 == 0)
-				// raise exception
-				std::exit(-1);
+				throw DivisionException();
 
 			this->check(v1, v2, Divide);
 
@@ -137,12 +136,11 @@ class Operand : public IOperand {
 			T v1 = this->value;
 			T v2 = (T) rhs.getDoubleValue();
 
-			if (this->getType() >= Float || rhs.getType() >= Float)
+			if (this->getType() == Float || this->getType() == Double || rhs.getType() == Float || rhs.getType() == Double)
 				throw ModuloException();
 		
 			if (v2 == 0)
 				throw DivisionException();
-				std::exit(-1);
 
 			this->check(v1, v2, Modulo);
 
