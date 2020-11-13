@@ -45,7 +45,7 @@ IOperand const		*OperandFactory::createFloat(std::string const &value) const {
 }
 
 IOperand const		*OperandFactory::createDouble(std::string const &value) const {
-	int res = std::stod(value);
+	double res = std::stod(value);
 
 	if (res > std::numeric_limits<double>::max())
 		throw OverflowException();

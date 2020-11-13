@@ -2,6 +2,7 @@
 #define OPERAND_HPP
 
 #include <limits>
+#include <iomanip>
 #include <stdexcept>
 
 #include "exceptions.hpp"
@@ -31,7 +32,7 @@ class Operand : public IOperand {
 		}
 
 		int	getPrecision() const {
-			return (int) sizeof(T);
+			return this->type;
 		}
 
 		eOperandType	getType() const {
@@ -138,7 +139,7 @@ class Operand : public IOperand {
 
 			if (this->getType() == Float || this->getType() == Double || rhs.getType() == Float || rhs.getType() == Double)
 				throw ModuloException();
-		
+
 			if (v2 == 0)
 				throw DivisionException();
 
@@ -152,6 +153,14 @@ class Operand : public IOperand {
 		}
 
 		std::string	toString() const  {
+			if (this->getType() == Float || this->getType() == Double) {
+				std::ostringstream stream;
+
+				stream << std::setprecision(std::numeric_limits<T>::max_digits10) << this->value;
+
+				return stream.str();
+			}
+
 			return std::to_string(this->value);
 		}
 };

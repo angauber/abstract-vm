@@ -1,5 +1,7 @@
 #include "lexer.hpp"
 
+#include <typeinfo>
+
 int	main(int ac, char **av) {
 	Lexer lexer;
 

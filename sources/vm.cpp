@@ -70,8 +70,8 @@ void	VM::print() {
 
 
 void	VM::dump() {
-	for (IOperand const *operand : this->stack) {
-		std::cout << operand->toString() << std::endl; 
+	for (auto it = this->stack.rbegin(); it != this->stack.rend(); ++it) {
+		std::cout << (*it)->toString() << std::endl; 
 	}
 }
 
