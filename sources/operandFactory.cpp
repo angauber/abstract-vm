@@ -1,58 +1,23 @@
 #include "operandFactory.hpp"
 
 IOperand const		*OperandFactory::createInt8(std::string const &value) const {
-	int res = std::stoi(value);
-
-	if (res > std::numeric_limits<int8_t>::max())
-		throw OverflowException();
-	else if (res < std::numeric_limits<int8_t>::min())
-		throw UnderflowException();
-
-	return new Operand<int8_t> ((int8_t) res);
+	return new Operand<int8_t> (value);
 }
 
 IOperand const		*OperandFactory::createInt16(std::string const &value) const {
-	int res = std::stoi(value);
-
-	if (res > std::numeric_limits<int16_t>::max())
-		throw OverflowException();
-	else if (res < std::numeric_limits<int16_t>::min())
-		throw UnderflowException();
-
-	return new Operand<int16_t> ((int16_t) res);
+	return new Operand<int16_t> (value);
 }
 
 IOperand const		*OperandFactory::createInt32(std::string const &value) const {
-	int res = std::stoi(value);
-
-	if (res > std::numeric_limits<int32_t>::max())
-		throw OverflowException();
-	else if (res < std::numeric_limits<int32_t>::min())
-		throw UnderflowException();
-
-	return new Operand<int32_t> ((int32_t) res);
+	return new Operand<int32_t> (value);
 }
 
 IOperand const		*OperandFactory::createFloat(std::string const &value) const {
-	float res = std::stof(value);
-
-	if (res > std::numeric_limits<float>::max())
-		throw OverflowException();
-	else if (res < std::numeric_limits<float>::min())
-		throw UnderflowException();
-
-	return new Operand<float> (res);
+	return new Operand<float> (value);
 }
 
 IOperand const		*OperandFactory::createDouble(std::string const &value) const {
-	double res = std::stod(value);
-
-	if (res > std::numeric_limits<double>::max())
-		throw OverflowException();
-	else if (res < std::numeric_limits<double>::min())
-		throw UnderflowException();
-
-	return new Operand<double> (res);
+	return new Operand<double> (value);
 }
 
 IOperand const		*OperandFactory::createOperand(eOperandType type, std::string const &value) const {
@@ -72,5 +37,7 @@ IOperand const		*OperandFactory::createOperand(eOperandType type, std::string co
 		} else {
 			throw OverflowException();
 		}
+	} catch (const std::invalid_argument &) {
+		throw ParsingException("Error: Unknown value");
 	}
 }

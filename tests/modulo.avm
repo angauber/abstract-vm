@@ -6,3 +6,5 @@ mod
 assert int16(1)
 
 dump
+
+exit
