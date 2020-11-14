@@ -1,6 +1,9 @@
 # Executable
 avm
 
+# vim
+*.swp
+
 # Cmake
 CMakeLists.txt.user
 CMakeCache.txt
