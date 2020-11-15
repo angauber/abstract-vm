@@ -41,7 +41,7 @@ template <class T>
 void	Operand<T>::fillStr() {
 	if (this->getType() == Float || this->getType() == Double) {
 		std::ostringstream stream;
-		stream << std::setprecision(std::numeric_limits<T>::max_digits10) << this->value;
+		stream << std::setprecision(std::numeric_limits<T>::digits10) << this->value;
 
 		this->str = stream.str();
 	} else {
