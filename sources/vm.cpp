@@ -49,7 +49,7 @@ IOperand const *VM::pop() {
 	return operand;
 }
 
-void	VM::assert(IOperand const *expected) {
+void	VM::assertEquals(IOperand const *expected) {
 	if (this->stack.empty())
 		throw StackException();
 

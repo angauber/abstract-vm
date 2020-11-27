@@ -15,7 +15,7 @@ class VM {
 		IOperand const *	pop();
 
 		void				push(IOperand const *);
-		void				assert(IOperand const *);
+		void				assertEquals(IOperand const *);
 		
 		void				add();
 		void				sub();

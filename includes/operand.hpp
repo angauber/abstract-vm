@@ -4,6 +4,7 @@
 #include <limits>
 #include <iomanip>
 #include <stdexcept>
+#include <sstream>
 
 #include "exceptions.hpp"
 #include "lineInfos.hpp"

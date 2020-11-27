@@ -58,7 +58,7 @@ void	Parser::handleInstruction(std::string operation, std::string type) {
 		if (operation == "push")
 			this->vm.push(this->getOperand(type));
 		else if (operation == "assert")
-			this->vm.assert(this->getOperand(type));
+			this->vm.assertEquals(this->getOperand(type));
 		else
 			throw ParsingException("Error: Unknown operation \"" + operation + "\"");
 	} else {
