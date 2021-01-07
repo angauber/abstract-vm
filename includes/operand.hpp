@@ -10,13 +10,10 @@
 #include "lineInfos.hpp"
 #include "sign.hpp"
 #include "IOperand.hpp"
+#include "operandFactory.hpp"
 
 template <class T>
 class Operand : public IOperand {
-	private:
-		T				value;
-		eOperandType	type;
-		std::string		str;
 	public:
 		Operand(T);
 		Operand(std::string const &);
@@ -29,10 +26,14 @@ class Operand : public IOperand {
 		int					getPrecision() const;
 		std::string const &	toString() const;
 		double				getDoubleValue() const;
-		void				check(T, T, Sign) const;
 
 		void				fillType();
 		void				fillStr();
+	private:
+	T				value;
+	eOperandType	type;
+	std::string		str;
+	OperandFactory	factory;
 };
 
 #include "../sources/operand.cpp"
