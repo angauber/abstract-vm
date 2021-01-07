@@ -1,0 +1,10 @@
+push int8(87)
+push int8(84)
+push int8(70)
+
+push int8(126)
+
+push int8(50)
+push int8(52)
+dump
+exit

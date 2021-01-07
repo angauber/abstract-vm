@@ -39,14 +39,14 @@ void	Operand<T>::fillType() {
 
 template <class T>
 void	Operand<T>::fillStr() {
-	if (this->getType() == Float || this->getType() == Double) {
-		std::ostringstream stream;
-		stream << std::setprecision(std::numeric_limits<T>::digits10) << this->value;
+	std::ostringstream stream;
 
-		this->str = stream.str();
-	} else {
-		this->str = std::to_string(this->value);
-	}
+	if (this->getType() == Float || this->getType() == Double)
+		stream << std::setprecision(std::numeric_limits<T>::digits10);
+
+	stream << this->value;
+	
+	this->str = stream.str();
 }
 
 template <class T>
