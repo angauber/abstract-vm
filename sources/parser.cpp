@@ -71,7 +71,7 @@ void	Parser::handleInstruction(std::string operation, std::string type) {
 		else if (operation == "mul")
 			this->vm.mul();
 		else if (operation == "div")
-			this->vm.mul();
+			this->vm.div();
 		else if (operation == "mod")
 			this->vm.mod();
 		else if (operation == "dump")
