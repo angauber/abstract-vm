@@ -65,12 +65,20 @@ double	Operand<T>::getDoubleValue() const {
 }
 
 template <class T>
+T	Operand<T>::getValue() const {
+	return this->value;
+}
+
+template <class T>
 IOperand const	*Operand<T>::operator+(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	T v1 = this->value;
 	T v2 = (T) rhs.getDoubleValue();
+	std::ostringstream stream;
 
-	return this->factory->createOperand(type, std::to_string(v1 + v2));
+	stream << v1 + v2;
+
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>
@@ -78,8 +86,11 @@ IOperand const	*Operand<T>::operator-(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	T v1 = this->value;
 	T v2 = (T) rhs.getDoubleValue();
+	std::ostringstream stream;
 
-	return this->factory->createOperand(type, std::to_string(v1 - v2));
+	stream << v1 - v2;
+
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>
@@ -87,8 +98,11 @@ IOperand const	*Operand<T>::operator*(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	T v1 = this->value;
 	T v2 = (T) rhs.getDoubleValue();
+	std::ostringstream stream;
 
-	return this->factory->createOperand(type, std::to_string(v1 * v2));
+	stream << v1 * v2;
+
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>
@@ -96,26 +110,32 @@ IOperand const	*Operand<T>::operator/(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	T v1 = this->value;
 	T v2 = (T) rhs.getDoubleValue();
+	std::ostringstream stream;
 
 	if (v2 == 0)
 		throw DivisionException();
 
-	return this->factory->createOperand(type, std::to_string(v1 / v2));
+	stream << v1 / v2;
+
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>
 IOperand const	*Operand<T>::operator%(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
-	T v1 = this->value;
-	T v2 = (T) rhs.getDoubleValue();
+	int32_t v1 = (int32_t) this->value;
+	int32_t v2 = (int32_t) rhs.getDoubleValue();
+	std::ostringstream stream;
 
-	if (this->getType() == Float || this->getType() == Double || rhs.getType() == Float || rhs.getType() == Double)
+	if (type == Float || type == Double)
 		throw ModuloException();
 
 	if (v2 == 0)
 		throw DivisionException();
 
-	return this->factory->createOperand(type, std::to_string(v1 % v2));
+	stream << v1 % v2;
+
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>

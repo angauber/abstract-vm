@@ -26,14 +26,15 @@ class Operand : public IOperand {
 		int					getPrecision() const;
 		std::string const &	toString() const;
 		double				getDoubleValue() const;
+		T					getValue() const;
 
 		void				fillType();
 		void				fillStr();
 	private:
-	T				value;
-	eOperandType	type;
-	std::string		str;
-	OperandFactory	factory;
+		T				value;
+		eOperandType	type;
+		std::string		str;
+		OperandFactory	factory;
 };
 
 #include "../sources/operand.cpp"
