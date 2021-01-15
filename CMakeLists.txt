@@ -8,8 +8,6 @@ project(AbstractVM
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror")
 
-list(APPEND CMAKE_PREFIX_PATH "~/.lib/lib/cmake/Catch2/")
-
 add_library(avmlib STATIC vm/sources/exceptions.cpp
 	vm/sources/operandFactory.cpp
 	vm/sources/vm.cpp)
