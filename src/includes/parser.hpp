@@ -4,9 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "vm.hpp"
-#include "operandFactory.hpp"
-#include "lineInfos.hpp"
+#include "../../vm/includes/vm.hpp"
 
 class Parser {
 	public:

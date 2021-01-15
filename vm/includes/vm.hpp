@@ -12,10 +12,11 @@
 class VM {
 	public:
 		IOperand const *	process(IOperand const *, IOperand const *, Sign);
+		IOperand const *	top() const;
 		IOperand const *	pop();
 
 		void				push(IOperand const *);
-		void				assertEquals(IOperand const *);
+		void				assertEquals(IOperand const *) const;
 		
 		void				add();
 		void				sub();
@@ -23,8 +24,8 @@ class VM {
 		void				div();
 		void				mod();
 
-		void				dump();
-		void				print();
+		void				dump() const;
+		void				print() const;
 		void				exit();	
 
 		void				freeStack();

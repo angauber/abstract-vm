@@ -49,7 +49,15 @@ IOperand const *VM::pop() {
 	return operand;
 }
 
-void	VM::assertEquals(IOperand const *expected) {
+IOperand const *VM::top() const {
+	if (this->stack.empty())
+		throw StackException();
+
+	return this->stack.back();
+}
+
+/* TODO: change this to support Int8 ? */
+void	VM::assertEquals(IOperand const *expected) const {
 	if (this->stack.empty())
 		throw StackException();
 
@@ -59,7 +67,7 @@ void	VM::assertEquals(IOperand const *expected) {
 		throw AssertionException("Error: Could not assert that " + operand->toString() + " = " + expected->toString());
 }
 
-void	VM::print() {
+void	VM::print() const {
 	if (this->stack.empty())
 		throw StackException();
 
@@ -69,10 +77,9 @@ void	VM::print() {
 }
 
 
-void	VM::dump() {
-	for (auto it = this->stack.rbegin(); it != this->stack.rend(); ++it) {
-		std::cout << (*it)->toString() << std::endl; 
-	}
+void	VM::dump() const {
+	for (auto it = this->stack.rbegin(); it != this->stack.rend(); ++it)
+		std::cout << (*it)->toString() << std::endl;
 }
 
 void	VM::add() {
@@ -116,7 +123,6 @@ void	VM::exit() {
 }
 
 void	VM::freeStack() {
-	for (IOperand const *operand : this->stack) {
+	for (IOperand const *operand : this->stack)
 		delete operand;
-	}
 }
