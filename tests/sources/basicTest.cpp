@@ -1,4 +1,4 @@
-#include "catch.hpp"
+#include <catch2/catch.hpp>
 #include "../../vm/includes/vm.hpp"
 
 TEST_CASE( "Basic operations test", "[operations]" ) {
