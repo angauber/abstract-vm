@@ -10,8 +10,6 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror")
 
 list(APPEND CMAKE_PREFIX_PATH "~/.lib/lib/cmake/Catch2/")
 
-# enable_testing()
-
 add_library(avmlib STATIC vm/sources/exceptions.cpp
 	vm/sources/operandFactory.cpp
 	vm/sources/vm.cpp)
@@ -34,4 +32,3 @@ target_link_libraries(unit_tests Catch2::Catch2)
 include(CTest)
 include(Catch)
 catch_discover_tests(unit_tests)
-#install(TARGETS unit_tests RUNTIME DESTINATION bin)
