@@ -65,118 +65,77 @@ double	Operand<T>::getDoubleValue() const {
 }
 
 template <class T>
-void	Operand<T>::check(T v1, T v2, Sign sign) const {
-	switch(sign) {
-		case Plus:
-			if ((v1 + v2) > std::numeric_limits<T>::max())
-				throw OverflowException();
-			else if ((v1 + v2) < std::numeric_limits<T>::min()) 
-				throw UnderflowException();
-			break;
-		case Minus:
-			if ((v1 - v2) > std::numeric_limits<T>::max())
-				throw OverflowException();
-			else if ((v1 - v2) < std::numeric_limits<T>::min()) 
-				throw UnderflowException();
-			break;
-		case Times:
-			if ((v1 * v2) > std::numeric_limits<T>::max())
-				throw OverflowException();
-			else if ((v1 * v2) < std::numeric_limits<T>::min()) 
-				throw UnderflowException();
-			break;
-		case Divide:
-			if ((v1 / v2) > std::numeric_limits<T>::max())
-				throw OverflowException();
-			else if ((v1 / v2) < std::numeric_limits<T>::min()) 
-				throw UnderflowException();
-			break;
-		case Modulo:
-			if (((int32_t)v1 % (int32_t)v2) > std::numeric_limits<T>::max())
-				throw OverflowException();
-			else if (((int32_t)v1 % (int32_t)v2) < std::numeric_limits<T>::min()) 
-				throw UnderflowException();
-			break;
-	}
+T	Operand<T>::getValue() const {
+	return this->value;
 }
 
 template <class T>
 IOperand const	*Operand<T>::operator+(IOperand const &rhs) const {
-	if (this->getPrecision() < rhs.getPrecision()) {
-		return rhs + (*this);
-	}
-
+	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	T v1 = this->value;
 	T v2 = (T) rhs.getDoubleValue();
+	std::ostringstream stream;
 
-	this->check(v1, v2, Plus);
+	stream << v1 + v2;
 
-	return new Operand<T> (v1 + v2);
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>
 IOperand const	*Operand<T>::operator-(IOperand const &rhs) const {
-	if (this->getPrecision() < rhs.getPrecision()) {
-		return rhs - (*this);
-	}
-
+	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	T v1 = this->value;
 	T v2 = (T) rhs.getDoubleValue();
+	std::ostringstream stream;
 
-	this->check(v1, v2, Minus);
+	stream << v1 - v2;
 
-	return new Operand<T> (v1 - v2);
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>
 IOperand const	*Operand<T>::operator*(IOperand const &rhs) const {
-	if (this->getPrecision() < rhs.getPrecision()) {
-		return rhs * (*this);
-	}
-
+	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	T v1 = this->value;
 	T v2 = (T) rhs.getDoubleValue();
+	std::ostringstream stream;
 
-	this->check(v1, v2, Times);
+	stream << v1 * v2;
 
-	return new Operand<T> (v1 * v2);
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>
 IOperand const	*Operand<T>::operator/(IOperand const &rhs) const {
-	if (this->getPrecision() < rhs.getPrecision()) {
-		return rhs / (*this);
-	}
-
+	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	T v1 = this->value;
 	T v2 = (T) rhs.getDoubleValue();
+	std::ostringstream stream;
 
 	if (v2 == 0)
 		throw DivisionException();
 
-	this->check(v1, v2, Divide);
+	stream << v1 / v2;
 
-	return new Operand<T> (v1 / v2);
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>
 IOperand const	*Operand<T>::operator%(IOperand const &rhs) const {
-	if (this->getPrecision() < rhs.getPrecision()) {
-		return rhs % (*this);
-	}
+	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
+	int32_t v1 = (int32_t) this->value;
+	int32_t v2 = (int32_t) rhs.getDoubleValue();
+	std::ostringstream stream;
 
-	T v1 = this->value;
-	T v2 = (T) rhs.getDoubleValue();
-
-	if (this->getType() == Float || this->getType() == Double || rhs.getType() == Float || rhs.getType() == Double)
+	if (type == Float || type == Double)
 		throw ModuloException();
 
 	if (v2 == 0)
 		throw DivisionException();
 
-	this->check(v1, v2, Modulo);
+	stream << v1 % v2;
 
-	return new Operand<T> ((int32_t)v1 % (int32_t)v2);
+	return this->factory.createOperand(type, stream.str());
 }
 
 template <class T>

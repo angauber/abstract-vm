@@ -1,4 +1,5 @@
 #include "operandFactory.hpp"
+#include "operand.hpp"
 
 IOperand const		*OperandFactory::createInt8(std::string const &value) const {
 	return new Operand<int8_t> (value);

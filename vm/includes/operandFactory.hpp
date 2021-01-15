@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "lineInfos.hpp"
-#include "operand.hpp"
+#include "IOperand.hpp"
 #include "exceptions.hpp"
 
 class OperandFactory {
