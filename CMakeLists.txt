@@ -8,7 +8,7 @@ project(AbstractVM
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror")
 
-list(APPEND CMAKE_PREFIX_PATH "/home/angauber/.lib/lib/cmake/Catch2/")
+list(APPEND CMAKE_PREFIX_PATH "~/.lib/lib/cmake/Catch2/")
 
 # enable_testing()
 
