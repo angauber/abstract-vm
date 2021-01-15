@@ -20,6 +20,9 @@ IOperand const	*VM::process(IOperand const *v1, IOperand const *v2, Sign sign) {
 			case Modulo:
 				result = *v1 % *v2;
 				break;
+			default:
+				throw OperationException();
+				break;
 		}
 	} catch (Exception const &) {
 		delete v1;

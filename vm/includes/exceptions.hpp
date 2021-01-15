@@ -53,4 +53,9 @@ class AssertionException : public Exception {
 		AssertionException(std::string const & = "Error: Assert instruction is not correct");
 };
 
+class OperationException : public Exception {
+	public:
+		OperationException(std::string const & = "Error: Unknown operation");
+};
+
 #endif

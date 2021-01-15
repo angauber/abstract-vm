@@ -40,3 +40,5 @@ ParsingException::ParsingException(std::string const &msg) : Exception(msg) {}
 StackException::StackException(std::string const &msg): Exception(msg) {}
 
 AssertionException::AssertionException(std::string const &msg) : Exception(msg) {}
+
+OperationException::OperationException(std::string const &msg) : Exception(msg) {}
