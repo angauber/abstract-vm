@@ -13,8 +13,8 @@ TEST_CASE( "Basic operations test", "[operations]" ) {
 
 	top = vm.top();
 
-    REQUIRE( top->getType() == Int16 );
-    REQUIRE( top->toString() == "33" );
+	REQUIRE( top->getType() == Int16 );
+	REQUIRE( top->toString() == "33" );
 
 	vm.push(factory.createOperand(Int32, "13"));
 

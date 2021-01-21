@@ -10,13 +10,13 @@
 
 class Lexer {
 	public:
-		void						readFromFile(char *);
-		void						readFromStdin();
+		int							readFromFile(char *);
+		int							readFromStdin();
 		lineInfos					line;
 	private:
 		Parser						parser;
 		bool						shouldBuffer;
-		void						read(std::istream &);
+		int							read(std::istream &);
 		void						readStream(std::istream &);
 		std::vector<std::string>	getTokensFromLine(std::string);
 };

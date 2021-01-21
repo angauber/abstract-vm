@@ -6,10 +6,8 @@ int	main(int ac, char **av) {
 	Lexer lexer;
 
 	if (ac == 2) {
-		lexer.readFromFile(av[1]);
+		return lexer.readFromFile(av[1]);
 	} else {
-		lexer.readFromStdin();	
+		return lexer.readFromStdin();	
 	}
-
-	return 0;
 }

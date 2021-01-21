@@ -1,31 +1,34 @@
 #include "lexer.hpp"
 
-void Lexer::readFromFile(char* filename) {
+int Lexer::readFromFile(char* filename) {
 	std::ifstream fileStream;
 
 	fileStream.open(filename, std::ifstream::in);
 
 	this->shouldBuffer = false;
-	this->read(fileStream);
 
-	fileStream.close();
+	return this->read(fileStream);
 }
 
-void Lexer::readFromStdin() {
+int	Lexer::readFromStdin() {
 	this->shouldBuffer = true;
-	this->read(std::cin);
+
+	return this->read(std::cin);
 }
 
-void	Lexer::read(std::istream &stream) {
+int	Lexer::read(std::istream &stream) {
 	try {
 		this->readStream(stream);
+
+		return 0;
 	} catch (Exception &e) {
 		parser.freeStack();
 
 		e.setLine(&this->line);
 
 		std::cerr << e.what() << std::endl;
-		std::exit(-1);
+
+		return -1;
 	}
 }
 
@@ -52,7 +55,10 @@ void Lexer::readStream(std::istream &stream) {
 				this->line = buffered;
 
 				parser.setLine(this->line);
-				parser.parseTokens();
+				if (parser.parseTokens()) {
+					parser.freeStack();
+					return ;
+				}
 			}
 
 			this->line = buffer.empty() ? line : buffer.back(),
@@ -68,7 +74,10 @@ void Lexer::readStream(std::istream &stream) {
 				this->line = line;
 
 				parser.setLine(this->line);
-				parser.parseTokens();
+				if (parser.parseTokens()) {
+					parser.freeStack();
+					return ;
+				}
 			}
 		}
 	}

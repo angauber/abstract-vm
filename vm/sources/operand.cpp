@@ -41,13 +41,21 @@ template <class T>
 void	Operand<T>::fillStr() {
 	std::ostringstream stream;
 
+	/* Setting max precision */
 	if (this->getType() == Float || this->getType() == Double)
 		stream << std::setprecision(std::numeric_limits<T>::digits10);
 
-	stream << this->value;
+	/* Avoiding int8_t ASCII conversion */
+	if (this->getType() == Int8) {
+		stream << (int) this->value;
+	}
+	else {
+		stream << this->value;
+	}
 	
 	this->str = stream.str();
 }
+
 
 template <class T>
 int		Operand<T>::getPrecision() const {
@@ -60,20 +68,11 @@ eOperandType	Operand<T>::getType() const {
 }
 
 template <class T>
-double	Operand<T>::getDoubleValue() const {
-	return (double) this->value;
-}
-
-template <class T>
-T	Operand<T>::getValue() const {
-	return this->value;
-}
-
-template <class T>
 IOperand const	*Operand<T>::operator+(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
-	T v1 = this->value;
-	T v2 = (T) rhs.getDoubleValue();
+
+	double v1 = (double) this->value;
+	double v2 = stod(rhs.toString());
 	std::ostringstream stream;
 
 	stream << v1 + v2;
@@ -84,8 +83,8 @@ IOperand const	*Operand<T>::operator+(IOperand const &rhs) const {
 template <class T>
 IOperand const	*Operand<T>::operator-(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
-	T v1 = this->value;
-	T v2 = (T) rhs.getDoubleValue();
+	double v1 = (double) this->value;
+	double v2 = stod(rhs.toString());
 	std::ostringstream stream;
 
 	stream << v1 - v2;
@@ -96,8 +95,8 @@ IOperand const	*Operand<T>::operator-(IOperand const &rhs) const {
 template <class T>
 IOperand const	*Operand<T>::operator*(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
-	T v1 = this->value;
-	T v2 = (T) rhs.getDoubleValue();
+	double v1 = (double) this->value;
+	double v2 = stod(rhs.toString());
 	std::ostringstream stream;
 
 	stream << v1 * v2;
@@ -108,8 +107,8 @@ IOperand const	*Operand<T>::operator*(IOperand const &rhs) const {
 template <class T>
 IOperand const	*Operand<T>::operator/(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
-	T v1 = this->value;
-	T v2 = (T) rhs.getDoubleValue();
+	double v1 = (double) this->value;
+	double v2 = stod(rhs.toString());
 	std::ostringstream stream;
 
 	if (v2 == 0)
@@ -124,7 +123,7 @@ template <class T>
 IOperand const	*Operand<T>::operator%(IOperand const &rhs) const {
 	eOperandType type = this->getPrecision() > rhs.getPrecision() ? this->getType() : rhs.getType();
 	int32_t v1 = (int32_t) this->value;
-	int32_t v2 = (int32_t) rhs.getDoubleValue();
+	int32_t v2 = (int32_t) stoi(rhs.toString());
 	std::ostringstream stream;
 
 	if (type == Float || type == Double)

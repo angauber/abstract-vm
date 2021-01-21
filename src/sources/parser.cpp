@@ -12,7 +12,7 @@ void	Parser::freeStack() {
 	this->vm.freeStack();
 }
 
-void	Parser::parseTokens() {
+bool	Parser::parseTokens() {
 	std::string operation;
 	std::string type;
 
@@ -21,7 +21,7 @@ void	Parser::parseTokens() {
 	if (this->line.tokens.size() == 2)
 		type = this->line.tokens.back();
 	
-	this->handleInstruction(operation, type);
+	return this->handleInstruction(operation, type);
 }
 
 IOperand const	*Parser::getOperand(std::string operand) {
@@ -53,7 +53,7 @@ IOperand const	*Parser::getOperand(std::string operand) {
 		throw ParsingException("Error: Unknown type \"" + type + "\"");
 }
 
-void	Parser::handleInstruction(std::string operation, std::string type) {
+bool	Parser::handleInstruction(std::string operation, std::string type) {
 	if (type.size() != 0) {	
 		if (operation == "push")
 			this->vm.push(this->getOperand(type));
@@ -63,7 +63,7 @@ void	Parser::handleInstruction(std::string operation, std::string type) {
 			throw ParsingException("Error: Unknown operation \"" + operation + "\"");
 	} else {
 		if (operation == "pop")
-			this->vm.pop();
+			delete this->vm.pop();
 		else if (operation == "add")
 			this->vm.add();
 		else if (operation == "sub")
@@ -79,8 +79,10 @@ void	Parser::handleInstruction(std::string operation, std::string type) {
 		else if (operation == "print")
 			this->vm.print();
 		else if (operation == "exit")
-			this->vm.exit();
+			return true;
 		else
 			throw ParsingException("Error: Unknown operation \"" + operation + "\"");
 	}
+
+	return false;
 }

@@ -6,5 +6,7 @@ push int8(126)
 
 push int8(50)
 push int8(52)
+
 dump
+
 exit

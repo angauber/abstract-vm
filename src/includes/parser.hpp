@@ -10,13 +10,13 @@ class Parser {
 	public:
 		void				buffer();
 		void				setLine(lineInfos);
-		void				parseTokens();
+		bool				parseTokens();
 		void				freeStack();
 	private:
 		VM					vm;
 		lineInfos			line;
 		bool				shouldBuffer = false;
-		void				handleInstruction(std::string, std::string);
+		bool				handleInstruction(std::string, std::string);
 		IOperand const *	getOperand(std::string);
 };
 

@@ -1,7 +1,16 @@
 #include "vm.hpp"
 
-IOperand const	*VM::process(IOperand const *v1, IOperand const *v2, Sign sign) {
+IOperand const	*VM::process(Sign sign) {
 	IOperand const *result;
+	IOperand const *v2;
+	IOperand const *v1;
+
+	if (this->stack.size() < 2) {
+		throw StackException();
+	}
+
+	v2 = this->pop();
+	v1 = this->pop();
 
 	try {
 		switch (sign) {
@@ -59,73 +68,60 @@ IOperand const *VM::top() const {
 	return this->stack.back();
 }
 
-/* TODO: change this to support Int8 ? */
 void	VM::assertEquals(IOperand const *expected) const {
 	if (this->stack.empty())
 		throw StackException();
 
 	IOperand const *operand = this->stack.back();
 
-	if (operand->toString() != expected->toString())
+	if (operand->toString() != expected->toString()) {
+		delete expected;
 		throw AssertionException("Error: Could not assert that " + operand->toString() + " = " + expected->toString());
+	}
+	
+	delete expected;
+}
+
+void	VM::render(IOperand const *operand) const {
+	if (operand->getType() == Int8) {
+		std::cout << (int8_t) stod(operand->toString()) << std::endl;
+	} else {
+		std::cout << operand->toString() << std::endl;
+	}
 }
 
 void	VM::print() const {
-	if (this->stack.empty())
-		throw StackException();
-
-	IOperand const *operand = this->stack.back();
-
-	std::cout << operand->toString() << std::endl; 
+	this->render(this->top());
 }
 
-
 void	VM::dump() const {
-	for (auto it = this->stack.rbegin(); it != this->stack.rend(); ++it)
-		std::cout << (*it)->toString() << std::endl;
+	for (auto operand = this->stack.rbegin(); operand != this->stack.rend(); ++operand) {
+		this->render(*operand);
+	}
 }
 
 void	VM::add() {
-	IOperand const *v2 = this->pop();
-	IOperand const *v1 = this->pop();
-
-	this->push(this->process(v1, v2, Plus));
+	this->push(this->process(Plus));
 }
 
 void	VM::sub() {
-	IOperand const *v2 = this->pop();
-	IOperand const *v1 = this->pop();
-
-	this->push(this->process(v1, v2, Minus));
+	this->push(this->process(Minus));
 }
 
 void	VM::mul() {
-	IOperand const *v2 = this->pop();
-	IOperand const *v1 = this->pop();
-
-	this->push(this->process(v1, v2, Times));
+	this->push(this->process(Times));
 }
 
 void	VM::div() {
-	IOperand const *v2 = this->pop();
-	IOperand const *v1 = this->pop();
-
-	this->push(this->process(v1, v2, Divide));
+	this->push(this->process(Divide));
 }
 
 void	VM::mod() {
-	IOperand const *v2 = this->pop();
-	IOperand const *v1 = this->pop();
-
-	this->push(this->process(v1, v2, Modulo));
-}
-
-void	VM::exit() {
-	this->freeStack();
-	std::exit(0);
+	this->push(this->process(Modulo));
 }
 
 void	VM::freeStack() {
-	for (IOperand const *operand : this->stack)
+	for (IOperand const *operand : this->stack) {
 		delete operand;
+	}
 }

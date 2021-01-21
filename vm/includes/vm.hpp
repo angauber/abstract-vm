@@ -11,7 +11,7 @@
 
 class VM {
 	public:
-		IOperand const *	process(IOperand const *, IOperand const *, Sign);
+		/* Used for testing */
 		IOperand const *	top() const;
 		IOperand const *	pop();
 
@@ -26,11 +26,12 @@ class VM {
 
 		void				dump() const;
 		void				print() const;
-		void				exit();	
 
 		void				freeStack();
 	private:
 		std::vector<IOperand const *>	stack;
+		IOperand const *				process(Sign);
+		void							render(IOperand const *) const;
 };
 
 #endif
