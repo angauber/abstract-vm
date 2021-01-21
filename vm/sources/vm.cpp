@@ -75,8 +75,10 @@ void	VM::assertEquals(IOperand const *expected) const {
 	IOperand const *operand = this->stack.back();
 
 	if (operand->toString() != expected->toString()) {
+		std::string expectedString = expected->toString();
 		delete expected;
-		throw AssertionException("Error: Could not assert that " + operand->toString() + " = " + expected->toString());
+
+		throw AssertionException("Error: Could not assert that " + operand->toString() + " = " + expectedString);
 	}
 	
 	delete expected;

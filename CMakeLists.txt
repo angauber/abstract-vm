@@ -25,7 +25,7 @@ add_executable(unit_tests tests/sources/main.cpp
 		tests/sources/basicTests.cpp
 		tests/sources/typeComparisonTests.cpp
 		tests/sources/overflowTests.cpp
-)
+		tests/sources/assertionTests.cpp)
 
 target_link_libraries(unit_tests avmlib)
 target_link_libraries(unit_tests Catch2::Catch2)

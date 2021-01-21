@@ -1,0 +1,11 @@
+push int16(9)
+push int16(4)
+
+add
+
+print
+
+assert int8(13)
+assert int8(14)
+
+exit
