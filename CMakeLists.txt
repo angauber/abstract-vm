@@ -22,7 +22,10 @@ target_link_libraries(avm PRIVATE avmlib)
 find_package(Catch2 REQUIRED)
 
 add_executable(unit_tests tests/sources/main.cpp
-		tests/sources/basicTest.cpp)
+		tests/sources/basicTests.cpp
+		tests/sources/typeComparisonTests.cpp
+		tests/sources/overflowTests.cpp
+)
 
 target_link_libraries(unit_tests avmlib)
 target_link_libraries(unit_tests Catch2::Catch2)

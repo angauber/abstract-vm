@@ -121,7 +121,7 @@ void	VM::mod() {
 }
 
 void	VM::freeStack() {
-	for (IOperand const *operand : this->stack) {
-		delete operand;
+	while (!this->stack.empty()) {
+		delete this->pop();
 	}
 }
