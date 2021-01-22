@@ -22,8 +22,6 @@ int	Lexer::read(std::istream &stream) {
 
 		return 0;
 	} catch (Exception &e) {
-		parser.freeStack();
-
 		e.setLine(&this->line);
 
 		std::cerr << e.what() << std::endl;
@@ -56,7 +54,6 @@ void Lexer::readStream(std::istream &stream) {
 
 				parser.setLine(this->line);
 				if (parser.parseTokens()) {
-					parser.freeStack();
 					return ;
 				}
 			}
@@ -75,7 +72,6 @@ void Lexer::readStream(std::istream &stream) {
 
 				parser.setLine(this->line);
 				if (parser.parseTokens()) {
-					parser.freeStack();
 					return ;
 				}
 			}

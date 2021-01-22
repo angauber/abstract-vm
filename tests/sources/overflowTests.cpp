@@ -21,8 +21,6 @@ TEST_CASE( "Overflows on push", "[operations, overflow]" ) {
 	} catch (UnderflowException const &e) {
 		REQUIRE( true );
 	}
-
-	vm.freeStack();
 }
 
 TEST_CASE( "Overflow on operation", "[operations, overflow]" ) {
@@ -40,8 +38,6 @@ TEST_CASE( "Overflow on operation", "[operations, overflow]" ) {
 		REQUIRE( true );
 	}
 
-	vm.freeStack();
-
 	vm.push(factory.createOperand(Int8, "-128"));
 	vm.push(factory.createOperand(Int8, "1"));
 
@@ -52,7 +48,4 @@ TEST_CASE( "Overflow on operation", "[operations, overflow]" ) {
 	} catch (UnderflowException const &e) {
 		REQUIRE( true );
 	}
-
-	vm.freeStack();
 }
-

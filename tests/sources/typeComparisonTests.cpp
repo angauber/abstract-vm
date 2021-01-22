@@ -27,5 +27,4 @@ TEST_CASE( "Different types tests", "[operations]" ) {
 	REQUIRE( vm.top()->getType() == Double );
 	REQUIRE( vm.top()->toString() == "104.5" );
 
-	vm.freeStack();
 }

@@ -51,7 +51,5 @@ TEST_CASE( "Basic tests", "[operations]" ) {
 			REQUIRE( vm.top()->getType() == type );
 			REQUIRE( vm.top()->toString() == "5" );
 		}
-
-		vm.freeStack();
 	}
 }

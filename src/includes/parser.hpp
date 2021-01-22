@@ -11,7 +11,6 @@ class Parser {
 		void				buffer();
 		void				setLine(lineInfos);
 		bool				parseTokens();
-		void				freeStack();
 	private:
 		VM					vm;
 		lineInfos			line;

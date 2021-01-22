@@ -8,10 +8,6 @@ void	Parser::setLine(lineInfos line) {
 	this->line = line;
 }
 
-void	Parser::freeStack() {
-	this->vm.freeStack();
-}
-
 bool	Parser::parseTokens() {
 	std::string operation;
 	std::string type;

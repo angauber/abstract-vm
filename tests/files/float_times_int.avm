@@ -1,5 +1,5 @@
 push int16(75)
-;push float(44.55)
+push float(44.55)
 
 mul
 

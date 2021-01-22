@@ -27,11 +27,12 @@ class VM {
 		void				dump() const;
 		void				print() const;
 
-		void				freeStack();
+							~VM();
 	private:
 		std::vector<IOperand const *>	stack;
 		IOperand const *				process(Sign);
 		void							render(IOperand const *) const;
+		void							freeStack();
 };
 
 #endif
