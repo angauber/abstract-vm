@@ -16,7 +16,7 @@ Operand<T>::Operand(std::string const &value) {
 
 	if (v > std::numeric_limits<T>::max())
 		throw OverflowException();
-	else if (v < std::numeric_limits<T>::min())
+	else if (v < std::numeric_limits<T>::lowest())
 		throw UnderflowException();
 	
 	this->value = (T) v;
